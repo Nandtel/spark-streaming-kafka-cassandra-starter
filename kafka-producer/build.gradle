@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+buildscript {
+    repositories {jcenter()}
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+mainClassName = "com.dengo.kafka.producer.KafkaProducerApplication"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+shadowJar {
+    baseName = 'kafka-producer'
+    version = '0.0.1'
+    classifier = ''
+    mergeGroovyExtensionModules()
+    zip64=true
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.8.2.0'
+    compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
+    compile project(':model-common')
+}

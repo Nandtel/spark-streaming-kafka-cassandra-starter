@@ -1,0 +1,47 @@
+apply plugin: 'scala'
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+buildscript {
+    repositories {jcenter()}
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+mainClassName = "com.dengo.spark.consumer.SparkConsumerApplication"
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+shadowJar {
+    baseName = 'spark-consumer'
+    version = '0.0.1'
+    classifier = ''
+    mergeGroovyExtensionModules()
+    append('reference.conf')
+    zip64=true
+}
+
+configurations {
+    runtime.exclude group: "org.apache.spark", module: "spark-core_${scalaVersion}"
+    runtime.exclude group: "org.apache.spark", module: "spark-sql_${scalaVersion}"
+    runtime.exclude group: "org.apache.spark", module: "spark-streaming_${scalaVersion}"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.scala-lang:scala-library:${scalaVersion}.6")
+    compile("org.apache.spark:spark-core_${scalaVersion}:${sparkVersion}")
+    compile("org.apache.spark:spark-sql_${scalaVersion}:${sparkVersion}")
+    compile("org.apache.spark:spark-streaming_${scalaVersion}:${sparkVersion}")
+    compile("org.apache.spark:spark-streaming-kafka_${scalaVersion}:${sparkVersion}") {
+        exclude module: "org.spark-project.spark"}
+    compile("com.datastax.spark:spark-cassandra-connector_${scalaVersion}:${connectorVersion}")
+    compile('com.google.code.gson:gson:2.7')
+    compile project(':model-common')
+}

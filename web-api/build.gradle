@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'spring-boot'
+
+buildscript {
+    repositories {jcenter()}
+    ext {
+        springBootVersion = '1.3.5.RELEASE'
+        cassandraDriverCore = '3.0.1'
+        gsonVersion = '2.7'
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+mainClassName = "com.dengo.web.api.WebApplication"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    baseName = 'web'
+    version =  '0.0.1'
+    classifier = ''
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("com.datastax.cassandra:cassandra-driver-core:${cassandraDriverCore}")
+    compile project(':model-common')
+    compile("com.google.code.gson:gson:${gsonVersion}")
+
+}

@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.scala-lang:scala-library:${scalaVersion}.6")
+}
