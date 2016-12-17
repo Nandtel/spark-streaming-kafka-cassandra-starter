@@ -11,16 +11,10 @@ Demo pipeline application. Pipeline is compact and easy-to-use example of using 
 - Cassandra 2.2.6
 - Docker
 
-## How to run automatically
-Run start script from root of project
-```
-./start.sh
-```
-
 ## How to run manually
 Replace file log4j.properties to build/libs and then start application via docker-compose:
 ```
-docker-compose run --rm spark
+docker-compose run -d spark
 ```
 
 Open Kafka container with command:
@@ -39,16 +33,21 @@ kafka-topics.sh --list --zookeeper $ZOOKEEPER
 kafka-topics.sh --describe --zookeeper $ZOOKEEPER --topic Hello-Kafka
 ```
 
+Open Spark container with command:
+```
+docker exec -it $(docker-compose ps -q spark) bash
+```
+
 Start master and worker in spark container:
 ```
 ./usr/local/spark/sbin/start-master.sh
-./usr/local/spark/sbin/start-slave.sh spark://172.17.0.4:7077
+./usr/local/spark/sbin/start-slave.sh $MASTER
 ```
 
 Run spark-consumer application in spark container:
 ```
 spark-submit \
---master spark://172.17.0.4:7077 \
+--master $MASTER \
 --conf spark.cassandra.connection.host=cassandra \
 app/spark-consumer-0.0.1.jar kafka:9092 Hello-Kafka
 ```

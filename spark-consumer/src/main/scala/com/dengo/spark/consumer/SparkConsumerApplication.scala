@@ -5,7 +5,7 @@ import com.datastax.spark.connector.streaming._
 import com.dengo.model.common.Event
 import com.google.gson.Gson
 import kafka.serializer.StringDecoder
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.{SparkConf}
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -37,8 +37,6 @@ object SparkConsumerApplication {
     val Array(brokers, topics) = args
 
     SparkLogging.setStreamingLogLevels()
-
-    new SparkContext().getConf
 
     val sparkConf: SparkConf = new SparkConf().setAppName("SparkConsumer")
 //      .setMaster("local[*]")

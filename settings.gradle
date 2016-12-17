@@ -1,4 +1,3 @@
 include 'kafka-producer'
 include 'spark-consumer'
-include 'web-api'
 include 'model-common'

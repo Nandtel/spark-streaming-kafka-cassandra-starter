@@ -1,40 +1,32 @@
-### Docker-compose file
-## Author: Sergey Petrovsky
+version: '2'
+services:
+  kafka:
+    image: antlypls/kafka:0.8.2.2
+    volumes:
+       - ./kafka-producer/build/libs:/app
+       - ./kafka-producer/script:/script
+    environment:
+      - KAFKA=localhost:9092
+      - ZOOKEEPER=localhost:2181
+    expose:
+      - "2181"
+      - "9092"
 
-kafka:
-  image: antlypls/kafka:0.8.2.2
-  volumes:
-     - ./kafka-producer/build/libs:/app
-     - ./kafka-producer/script:/script
-  environment:
-    - KAFKA=localhost:9092
-    - ZOOKEEPER=localhost:2181
-  expose:
-    - "2181"
-    - "9092"
+  cassandra:
+    image: cassandra:2.2.6
 
-cassandra:
-  image: cassandra:2.2.6
-
-spark:
-  image: antlypls/spark:1.6.0
-  volumes:
-    - ./spark-consumer/build/libs:/app
-    - ./spark-consumer/script:/script
-  command: sleep infinity
-  environment:
-      - MASTER=spark://0.0.0.0:7077
-  links:
-    - kafka
-    - cassandra
-
-web-api:
-  image: java:8u92-jdk-alpine
-  ports:
-    - "8080:8080"
-  volumes:
-    - ./web-api/build/libs:/app
-  command: java -jar app/web-0.0.1.jar
-  links:
-    - spark #This link need to start web service after previous started containers
-    - cassandra
+  spark:
+    image: antlypls/spark:1.6.0
+    volumes:
+      - ./spark-consumer/build/libs:/app
+      - ./spark-consumer/script:/script
+    environment:
+        - MASTER=spark://172.18.0.4:7077
+    depends_on:
+      - kafka
+      - cassandra
+    ports:
+      - "4040:4040"
+      - "4041:4041"
+      - "4042:4042"
+    command: sleep infinity
