@@ -12,6 +12,11 @@ Demo pipeline application. Pipeline is compact and easy-to-use example of using 
 - Docker
 
 ## How to run manually
+Build the application:
+```
+gradlew shadowJar
+```
+
 Replace file log4j.properties to build/libs and then start application via docker-compose:
 ```
 docker-compose run -d spark

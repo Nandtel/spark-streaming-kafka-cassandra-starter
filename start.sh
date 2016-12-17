@@ -2,8 +2,7 @@
 
 docker-compose down
 ./gradlew clean && \
-./gradlew shadowJar && \
-./gradlew build -p ./web-api
+./gradlew shadowJar
 
 docker-compose up -d
 
