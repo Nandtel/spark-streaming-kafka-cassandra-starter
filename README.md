@@ -62,6 +62,16 @@ Run kafka-producer application in kafka container:
 java -jar ../app/kafka-producer-0.0.1.jar
 ```
 
+Open the cassandra container to see the results:
+```
+docker exec -it $(docker-compose ps -q cassandra) bash
+```
+
+And check the results:
+```
+cqlsh -e "SELECT * FROM api.event"
+```
+
 If you want delete locked builds directories, then run:
 ```
 sudo rm -rf spark-consumer/build kafka-producer/build model-common/build web-api/build
