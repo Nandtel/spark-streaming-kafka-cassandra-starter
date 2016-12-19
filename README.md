@@ -14,7 +14,7 @@ Demo pipeline application. Pipeline is compact and easy-to-use example of using 
 ## How to run manually
 Build the application:
 ```
-gradlew shadowJar
+./gradlew shadowJar
 ```
 
 Replace file log4j.properties to build/libs and then start application via docker-compose:
@@ -38,7 +38,7 @@ kafka-topics.sh --list --zookeeper $ZOOKEEPER
 kafka-topics.sh --describe --zookeeper $ZOOKEEPER --topic events
 ```
 
-Open Spark container with command:
+Then exit from Kafka container and open Spark container with command:
 ```
 docker exec -it $(docker-compose ps -q spark) bash
 ```
@@ -57,19 +57,14 @@ spark-submit \
 app/spark-consumer-0.0.1.jar kafka:9092 events
 ```
 
-Run kafka-producer application in kafka container:
+Then open Kafka container and run kafka-producer application:
 ```
-java -jar ../app/kafka-producer-0.0.1.jar
+docker exec -it $(docker-compose ps -q kafka) java -jar ../app/kafka-producer-0.0.1.jar
 ```
 
 Open the cassandra container to see the results:
 ```
-docker exec -it $(docker-compose ps -q cassandra) bash
-```
-
-And check the results:
-```
-cqlsh -e "SELECT * FROM api.event"
+docker exec -it $(docker-compose ps -q cassandra) cqlsh -e "SELECT * FROM api.event"
 ```
 
 If you want delete locked builds directories, then run:
