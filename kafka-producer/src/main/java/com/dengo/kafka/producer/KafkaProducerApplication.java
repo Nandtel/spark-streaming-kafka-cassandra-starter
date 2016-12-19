@@ -20,7 +20,7 @@ public class KafkaProducerApplication {
         String[] words = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
 
         Random ran = new Random(System.currentTimeMillis());
-        String topicName = "Hello-Kafka";
+        String topicName = "events";
 
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");

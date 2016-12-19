@@ -29,13 +29,13 @@ docker exec -it $(docker-compose ps -q kafka) bash
 
 Create topic in kafka container:
 ```
-kafka-topics.sh --create --zookeeper $ZOOKEEPER --replication-factor 1 --partitions 2 --topic Hello-Kafka
+kafka-topics.sh --create --zookeeper $ZOOKEEPER --replication-factor 1 --partitions 2 --topic events
 ```
 
 Check topic in kafka container:
 ```
 kafka-topics.sh --list --zookeeper $ZOOKEEPER
-kafka-topics.sh --describe --zookeeper $ZOOKEEPER --topic Hello-Kafka
+kafka-topics.sh --describe --zookeeper $ZOOKEEPER --topic events
 ```
 
 Open Spark container with command:
@@ -54,7 +54,7 @@ Run spark-consumer application in spark container:
 spark-submit \
 --master $MASTER \
 --conf spark.cassandra.connection.host=cassandra \
-app/spark-consumer-0.0.1.jar kafka:9092 Hello-Kafka
+app/spark-consumer-0.0.1.jar kafka:9092 events
 ```
 
 Run kafka-producer application in kafka container:
