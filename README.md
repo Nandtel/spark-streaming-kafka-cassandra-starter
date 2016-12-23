@@ -1,6 +1,6 @@
 # Pipeline
 
-Demo pipeline application. Pipeline is compact and easy-to-use example of using Kafka, Spark Streaming and Cassandra together.
+Pipeline is compact and easy-to-use example of using Kafka, Spark Streaming and Cassandra together.
 
 ## Technologies
 - Java 8
