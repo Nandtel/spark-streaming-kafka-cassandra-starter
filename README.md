@@ -71,3 +71,6 @@ If you want delete locked builds directories, then run:
 ```
 sudo rm -rf spark-consumer/build kafka-producer/build model-common/build web-api/build
 ```
+
+## License
+The MIT License (MIT)
