@@ -1,6 +1,6 @@
-# Pipeline
+# Spark Streaming Kafka Cassandra Starter
 
-Pipeline is compact and easy-to-use example of using Kafka, Spark Streaming and Cassandra together.
+Spark Streaming Kafka Cassandra Starter is compact and easy-to-use example of using Kafka, Spark Streaming and Cassandra together.
 
 ## Technologies
 - Java 8
