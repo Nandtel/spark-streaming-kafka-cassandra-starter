@@ -67,7 +67,7 @@ Open the cassandra container to see the results:
 docker exec -it $(docker-compose ps -q cassandra) cqlsh -e "SELECT * FROM api.event"
 ```
 
-If you want delete locked builds directories, then run:
+If you want delete locked build's directories, then run:
 ```
 sudo rm -rf spark-consumer/build kafka-producer/build model-common/build web-api/build
 ```
